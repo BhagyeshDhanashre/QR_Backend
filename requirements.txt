@@ -5,3 +5,4 @@ deepface==0.0.95
 pydantic==2.11.7
 urllib3==2.5.0
 tf_keras==2.20.1
+python-multipart==0.0.20
