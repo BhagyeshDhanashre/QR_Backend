@@ -96,7 +96,7 @@ def mark_attendance(data : models.Qrdata):
 
     branch = data.qr_data[7:9]
     sem = data.qr_data[19:20]
-    subject=data.qr_data[29:31]
+    subject=data.qr_data[29:]
     date=datetime.date.today()
     date = date.strftime("%Y-%m-%d")
     date=date.replace("-","_")
