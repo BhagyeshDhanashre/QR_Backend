@@ -4,6 +4,9 @@ from psycopg2.extras import RealDictCursor
 from database import get_connection
 import os
 os.environ["CUDA_VISIBLE_DEVICES"] = "-1"
+
+os.environ["TF_CPP_MIN_LOG_LEVEL"] = "3"
+os.environ["XLA_FLAGS"] = "--xla_gpu_cuda_data_dir="
 from deepface import DeepFace
 import psycopg2,models,datetime
 
@@ -78,6 +81,11 @@ async def face_verify(email:str = Form(), file: UploadFile = Form(...)):
         # detector_backend="retinaface"
         
     )
+
+    if os.path.exists(filename):
+        os.remove(filename)
+    if os.path.exists(filename1):
+        os.remove(filename1)
     
     return {"success":result["verified"]}
     
