@@ -43,6 +43,7 @@ def post_req(data: models.Log_in_Data_validation ):
 @app.post("/upload")
 async def face_verify(email:str = Form(), file: UploadFile = Form(...)):
     contents = await file.read()
+     return {"success":True}
     filename = f"{email.replace('@','_')}.jpg"
     prefDirectory = "uploads"
     full_path = os.path.join(prefDirectory,filename)
