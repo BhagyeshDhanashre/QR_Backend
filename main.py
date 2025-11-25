@@ -2,8 +2,10 @@ from fastapi import FastAPI,Form,UploadFile
 from fastapi.middleware.cors import CORSMiddleware
 from psycopg2.extras import RealDictCursor
 from database import get_connection
+import os
+os.environ["CUDA_VISIBLE_DEVICES"] = "-1"
 from deepface import DeepFace
-import psycopg2,os,models,datetime
+import psycopg2,models,datetime
 
 
 
@@ -48,10 +50,9 @@ async def face_verify(email:str = Form(), file: UploadFile = Form(...)):
     conn=get_connection()
     cursor=conn.cursor()
     cursor.execute("select image_data from user_table where email_id=%s",(email,))
-    conn.commit()
 
     binaryDataOfImage=cursor.fetchone()
-    binaryDataOfImage=binaryDataOfImage[0]
+    binaryDataOfImage=bytes(binaryDataOfImage[0])
 
     # covert the binary data to jpg file
     filename1=filename
